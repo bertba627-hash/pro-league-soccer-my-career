@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PRO LEAGUE SOCCER: MY CAREER</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#071007;color:#fff;font-family:Arial,sans-serif;overflow:hidden}
+.game{width:100vw;height:100vh;background:radial-gradient(circle at center,#173d18 0%,#071007 65%);position:relative}
+.rotate-message{display:none}
+.title{position:absolute;top:3vh;left:3vw;font-size:clamp(18px,3vw,32px);font-weight:900;letter-spacing:2px}
+.logo-area{position:absolute;top:3vh;left:50%;transform:translateX(-50%);text-align:center}
+.logo-area img{width:125px;height:125px;object-fit:contain;filter:drop-shadow(0 0 15px rgba(80,255,80,.35))}
+.menu{position:absolute;left:6vw;top:50%;transform:translateY(-50%);width:270px;display:flex;flex-direction:column;gap:12px}
+button{border:2px solid #3b8d38;border-radius:13px;padding:15px;background:linear-gradient(90deg,#163f18,#0c2410);color:#fff;font-size:18px;font-weight:bold;cursor:pointer}
+button:hover{background:#236522}
+.player-preview{position:absolute;right:8vw;bottom:0;width:360px;height:75vh;display:flex;justify-content:center;align-items:flex-end}
+.player{position:relative;width:190px;height:430px}
+.head{position:absolute;top:0;left:62px;width:66px;height:75px;border-radius:48% 48% 45% 45%;background:#b87950}
+.hair{position:absolute;top:-5px;left:60px;width:70px;height:35px;border-radius:50% 50% 20% 20%;background:#191919}
+.body{position:absolute;top:72px;left:40px;width:110px;height:155px;border-radius:20px 20px 12px 12px;background:#16821c;border:4px solid #092f0d}
+.body::before{content:"TS";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);font-size:30px;font-weight:900;color:#fff}
+.arm{position:absolute;top:84px;width:35px;height:125px;background:#b87950;border-radius:20px}
+.arm.left{left:10px;transform:rotate(13deg)}.arm.right{right:10px;transform:rotate(-13deg)}
+.shorts{position:absolute;top:215px;left:48px;width:95px;height:80px;background:#111;border-radius:5px 5px 15px 15px}
+.leg{position:absolute;top:285px;width:38px;height:120px;background:#b87950;border-radius:15px}
+.leg.left{left:55px}.leg.right{right:55px}
+.boot{position:absolute;top:390px;width:62px;height:30px;background:#fff;border-radius:15px 8px 8px 8px}
+.boot.left{left:35px}.boot.right{right:35px}
+.version{position:absolute;bottom:12px;left:15px;opacity:.55;font-size:12px}
+.screen{display:none;position:absolute;inset:0;background:#071007;padding:30px;overflow:auto}.screen.active{display:block}
+.back{background:#173d18;padding:12px 22px}
+.story{max-width:800px;margin:25px auto;background:#11141b;padding:25px;border-radius:15px;font-size:18px;line-height:1.6}
+.form{max-width:700px;margin:20px auto}.form input{width:100%;padding:14px;margin:7px 0 14px;border-radius:10px;border:1px solid #454b5b;background:#101218;color:#fff;font-size:16px}
+.preview{display:flex;gap:35px;align-items:center;justify-content:center}
+.hair-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}
+.hair-grid button{padding:10px;font-size:14px;background:#303541}
+.hair-grid button.selected{outline:3px solid #e5b94d}
+.style-screen{display:flex;height:100%;gap:20px}.style-left{width:55%;padding:10px}.style-right{width:45%;display:flex;align-items:center;justify-content:center}
+.style-options{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.style{width:115px;height:75px;border:3px solid #555;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:bold}
+.style.selected{border-color:#ffe600;box-shadow:0 0 15px #ffe60066}.green{background:#16821c}.white{background:#eee;color:#111}.blue{background:#1455a0}.red{background:#9d1515}
+.club{max-width:650px;margin:30px auto;padding:20px;border:2px solid #3c424f;border-radius:18px;display:flex;align-items:center;gap:20px}
+.club img{width:90px;height:90px;object-fit:contain;background:#fff;border-radius:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:700px;margin:20px auto}.stat{background:#242834;padding:15px;border-radius:12px;text-align:center}
+.center{text-align:center}
+@media(orientation:portrait){
+.rotate-message{display:flex;position:fixed;z-index:9999;inset:0;background:#071007;align-items:center;justify-content:center;text-align:center;padding:30px;font-size:22px;font-weight:bold}
+.game{display:none}
+}
+@media(max-width:800px){.menu{left:4vw;width:220px}.player-preview{right:1vw;transform:scale(.82);transform-origin:bottom right}.logo-area img{width:95px;height:95px}}
+@media(max-width:600px){.hair-grid{grid-template-columns:repeat(3,1fr)}.style-screen{gap:5px}.style-left{width:60%}.style-right{width:40%}}
+</style>
+</head>
+<body>
+<div class="rotate-message">📱<br><br>Oyunu yatay ekranda oynamak için<br>telefonunu yan çevir!</div>
+
+<div class="game">
+<div class="title">PRO LEAGUE SOCCER</div>
+<div class="logo-area"><img src="timsah.jpg" alt="Timsah Saray"></div>
+
+<div class="menu">
+<button onclick="show('story')">⚽ OYNA</button>
+<button onclick="show('styles')">👕 FORMA / STİL</button>
+<button onclick="show('teams')">🏟️ TAKIMLAR</button>
+<button onclick="show('career')">🏆 KARİYER</button>
+<button onclick="alert('⚙️ Ayarlar yakında!')">⚙️ AYARLAR</button>
+</div>
+
+<div class="player-preview"><div class="player">
+<div class="hair"></div><div class="head"></div><div class="arm left"></div><div class="arm right"></div>
+<div class="body" id="mainJersey"></div><div class="shorts"></div><div class="leg left"></div><div class="leg right"></div><div class="boot left"></div><div class="boot right"></div>
+</div></div>
+<div class="version">PRO LEAGUE SOCCER • MY CAREER</div>
+
+<section id="story" class="screen">
+<div class="story"><h1>HİKÂYENİN BAŞLANGICI</h1><p id="storyText"></p><button onclick="nextStory()">DEVAM ET</button></div>
+</section>
+
+<section id="create" class="screen">
+<div class="form"><button class="back" onclick="backHome()">← GERİ</button><h1>OYUNCU OLUŞTUR</h1>
+<label>İsim</label><input id="first" placeholder="İsim"><label>Soyisim</label><input id="last" placeholder="Soyisim">
+<p>Mevki: <b>FORVET</b></p><p style="margin:12px 0">Yaş: <b>18</b></p>
+<h2>Saç Stili</h2><div class="preview"><div><div class="player" style="transform:scale(.65)"><div class="hair"></div><div class="head"></div><div class="body"></div><div class="shorts"></div><div class="leg left"></div><div class="leg right"></div><div class="boot left"></div><div class="boot right"></div></div></div>
+<div class="hair-grid" id="hairGrid"></div></div>
+<button onclick="createPlayer()">KARİYERE BAŞLA</button></div>
+</section>
+
+<section id="styles" class="screen">
+<div class="style-screen"><div class="style-left"><button class="back" onclick="backHome()">← GERİ</button><h1>👕 FORMA / STİL</h1>
+<p>Bir stil seç. Sağdaki futbolcunun formasını canlı olarak görebilirsin.</p>
+<div class="style-options">
+<div class="style green selected" onclick="changeStyle('#16821c',this)">🟢 YEŞİL</div>
+<div class="style white" onclick="changeStyle('#eeeeee',this)">⚪ BEYAZ</div>
+<div class="style blue" onclick="changeStyle('#1455a0',this)">🔵 MAVİ</div>
+<div class="style red" onclick="changeStyle('#9d1515',this)">🔴 KIRMIZI</div>
+</div></div>
+<div class="style-right"><div class="player"><div class="hair"></div><div class="head"></div><div class="arm left"></div><div class="arm right"></div><div class="body" id="styleJersey"></div><div class="shorts"></div><div class="leg left"></div><div class="leg right"></div><div class="boot left"></div><div class="boot right"></div></div></div></div>
+</section>
+
+<section id="teams" class="screen"><button class="back" onclick="backHome()">← GERİ</button><div class="center"><h1>🏟️ TAKIMLAR</h1><div class="story">🐊 TİMSAH SARAY<br>🟢 LEO CITY<br>🔵 LEO UNITED<br>🟡 HİNDİCİTY<br>🟢 SARAYSPOR<br>🔴 KES FK<br>🟣 Pantenisspor<br>⚫ ANKA FC</div></div></section>
+
+<section id="club" class="screen"><div class="center"><h1>İLK KULÜP TEKLİFİ</h1><div class="club"><img src="timsah.jpg"><div><h2>TİMSAH SARAY 🐊</h2><p>Genç forvet sözleşmesi</p></div></div><button onclick="joinClub()">TİMSAH SARAY'A KATIL</button></div></section>
+
+<section id="career" class="screen"><div class="center"><button class="back" onclick="backHome()">← GERİ</button><h1 id="playerName">KARİYERİM</h1><p>TİMSAH SARAY • FORVET • 18 YAŞ</p>
+<div class="stats"><div class="stat">REYTİNG<br><b id="rating">65</b></div><div class="stat">GOL<br><b id="goals">0</b></div><div class="stat">ASİST<br><b id="assists">0</b></div></div>
+<div class="story">⚽ MAÇ GÜNÜ<br>Şimdilik maçları simüle ediyoruz.</div><button onclick="simulate()">MAÇI SİMÜLE ET</button><p id="result"></p></div></section>
+</div>
+
+<script>
+let storyIndex=0;
+const stories=[
+"Çocukluğunda ailen maddi açıdan zor günler geçiriyordu. Küçük evinizdeki en büyük hayalin futbolcu olmaktı. Her şeye rağmen topunu elinden bırakmadın.",
+"Bir gün babanla konuştun. Baban futbolcu olmanı istemediğini ve bu yolun çok zor olduğunu söyledi. Ama sen kararını vermiştin: Futbolcu olacaktın.",
+"18 yaşına geldin. Artık hayalinin peşinden gitmek için futbol seçmelerine katılmaya hazırsın."
+];
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function backHome(){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'))}
+function nextStory(){if(storyIndex<stories.length){document.getElementById('storyText').textContent=stories[storyIndex++]}else show('create')}
+document.getElementById('storyText').textContent=stories[0];storyIndex=1;
+for(let i=1;i<=12;i++){let b=document.createElement('button');b.textContent='Saç '+i;b.onclick=()=>{document.querySelectorAll('#hairGrid button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};document.getElementById('hairGrid').appendChild(b)}
+function createPlayer(){let a=document.getElementById('first').value.trim(),b=document.getElementById('last').value.trim();if(!a||!b){alert('Lütfen isim ve soyisim gir.');return}document.getElementById('playerName').textContent=a+' '+b;show('club')}
+function joinClub(){show('career')}
+function changeStyle(color,el){document.getElementById('styleJersey').style.background=color;document.getElementById('mainJersey').style.background=color;document.querySelectorAll('.style').forEach(x=>x.classList.remove('selected'));el.classList.add('selected')}
+function simulate(){let r=Math.random(),g=r>.55?1:0,a=r>.72?1:0;document.getElementById('goals').textContent=+document.getElementById('goals').textContent+g;document.getElementById('assists').textContent=+document.getElementById('assists').textContent+a;document.getElementById('rating').textContent=+document.getElementById('rating').textContent+(g?2:1);document.getElementById('result').textContent=g?'⚽ GOL! Takımın kazandı!':'Maç sona erdi. Performansın gelişiyor!'}
+</script>
+</body>
+</html>
