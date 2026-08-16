@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>PRO LEAGUE SOCCER: MY CAREER</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#061007;color:#fff;font-family:Arial,sans-serif}
+body{touch-action:manipulation}
+#game{width:100%;height:100%;min-height:100svh;background:radial-gradient(circle at 50% 20%,#15351b,#061007 70%);position:relative;overflow:hidden}
+.rotate{display:none}
+.top{position:absolute;top:12px;left:0;right:0;text-align:center;font-weight:900;font-size:clamp(20px,5vw,34px);letter-spacing:2px;text-shadow:0 3px 0 #000}
+.logo{position:absolute;top:8px;left:14px;width:70px;height:70px;border:3px solid #72d52d;border-radius:50%;background:#071007;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;text-align:center}
+.menu{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);display:grid;gap:12px;width:min(430px,80vw)}
+button{border:0;border-radius:14px;padding:15px 18px;background:#18852b;color:#fff;font-size:18px;font-weight:800;box-shadow:0 5px 0 #0b4e17}
+button:active{transform:translateY(3px);box-shadow:0 2px 0 #0b4e17}
+.small{background:#243b28;font-size:15px}
+#styleScreen{display:none;position:absolute;inset:0;background:#071007;padding:20px}
+.styleWrap{height:100%;display:grid;grid-template-columns:1fr 1.25fr;gap:18px;align-items:center}
+.preview{display:flex;flex-direction:column;align-items:center;gap:12px}
+.player{position:relative;width:min(300px,40vw);aspect-ratio:.68;display:flex;align-items:flex-start;justify-content:center}
+.head{position:absolute;top:4%;width:75%;z-index:2}
+.hair{position:absolute;top:-1%;width:82%;z-index:3;pointer-events:none}
+.body{position:absolute;bottom:0;width:90%;height:48%;border-radius:35px 35px 15px 15px;background:linear-gradient(90deg,#0a4414,#198f31,#0a4414);border:4px solid #8be35c;display:flex;justify-content:center;align-items:flex-start;padding-top:18px;font-size:18px;font-weight:900;letter-spacing:1px}
+.body:before{content:"";position:absolute;inset:20px 12px 12px;border-radius:20px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.12) 0 8px,transparent 8px 18px);z-index:0}
+.body span{position:relative;z-index:1}
+.styles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-height:80vh;overflow:auto;padding:5px}
+.card{background:#132117;border:2px solid #29452d;border-radius:12px;padding:7px;cursor:pointer;text-align:center}
+.card.selected{border-color:#8be35c;box-shadow:0 0 0 2px #18852b}
+.card img{width:100%;height:80px;object-fit:contain;background:#fff;border-radius:8px}
+.card b{display:block;margin-top:4px;font-size:12px}
+.back{position:absolute;left:18px;top:18px}
+@media(max-width:700px) and (orientation:portrait){#game>*{display:none}.rotate{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;padding:30px;font-size:22px;font-weight:900;background:#071007}.rotate span{display:block}}
+</style>
+</head>
+<body>
+<div id="game">
+<div class="rotate">📱↔️<br><br>Oyunu oynamak için telefonu yatay çevir!</div>
+<div class="top">PRO LEAGUE SOCCER<br><span style="font-size:.55em;color:#9bea69">MY CAREER</span></div>
+<div class="logo">🐊<br>TİMSAHSARAY</div>
+<div class="menu">
+<button onclick="openStyles()">OYUNCU STİLİ</button>
+<button onclick="alert('Yakında: Takım seçimi ve kariyer modu!')">KARİYER</button>
+<button onclick="alert('Maç modu hazırlanıyor!')">MAÇ YAP</button>
+</div>
+</div>
+
+<div id="styleScreen">
+<button class="back small" onclick="closeStyles()">← ANA MENÜ</button>
+<div class="styleWrap">
+  <div class="preview">
+    <h2>OYUNCUN</h2>
+    <div class="player">
+      <img class="head" src="kafa.webp">
+      <img id="currentHair" class="hair" src="stil1.png">
+      <div class="body"><span>TİMSAHSARAY</span></div>
+    </div>
+    <b id="styleName">Stil 1</b>
+  </div>
+  <div>
+    <h2>STİL SEÇ</h2>
+    <div class="styles" id="styles"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const styles = [
+{name:'Stil 1',img:'stil1.png'},{name:'Stil 2',img:'stil2.png'},{name:'Stil 3',img:'stil3.png'},{name:'Stil 4',img:'stil4.png'},{name:'Stil 5',img:'stil5.png'},{name:'Stil 6',img:'stil6.png'},{name:'Stil 7',img:'stil7.png'},{name:'Stil 8',img:'stil8.png'},{name:'Stil 9',img:'stil9.png'},{name:'Stil 10',img:'stil10.png'},{name:'Stil 11',img:'stil11.png'},{name:'Stil 12',img:'stil12.png'}
+];
+let selected=1;
+const box=document.getElementById('styles');
+styles.forEach((s,i)=>{
+  const d=document.createElement('div');
+  d.className='card'+(i===0?' selected':'');
+  d.innerHTML=`<img src="${s.img}"><b>${s.name}</b>`;
+  d.onclick=()=>{
+    selected=i+1;
+    document.getElementById('currentHair').src=s.img;
+    document.getElementById('styleName').textContent=s.name;
+    document.querySelectorAll('.card').forEach(x=>x.classList.remove('selected'));
+    d.classList.add('selected');
+  };
+  box.appendChild(d);
+});
+function openStyles(){document.getElementById('game').style.display='none';document.getElementById('styleScreen').style.display='block'}
+function closeStyles(){document.getElementById('styleScreen').style.display='none';document.getElementById('game').style.display='block'}
+</script>
+</body>
+</html>
